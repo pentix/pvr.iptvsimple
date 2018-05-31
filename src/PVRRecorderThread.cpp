@@ -269,7 +269,7 @@ void *PVRRecorderThread::Process(void)
           {
             if (lineVect.size()>1)
             {
-              strParams = strParams + " --"+lineVect[0]+"=\""+lineVect[1]+"\"";
+              strParams = strParams + " --"+lineVect[0]+"="+lineVect[1];
             }
             else 
             {
