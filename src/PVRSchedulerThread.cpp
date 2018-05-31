@@ -86,7 +86,9 @@ void *PVRSchedulerThread::Process(void)
 
   while (!b_stop)
   {
+    sleep(1000);    
     time_t now = time(NULL);
+    
     if (now >= b_lastCheck+b_interval) 
     {
       if (m_dvr->GetTimersAmount() > 0)
