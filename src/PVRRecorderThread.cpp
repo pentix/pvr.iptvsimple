@@ -394,9 +394,16 @@ void *PVRRecorderThread::Process(void)
     
     if (nowTimer.Timer.endTime<time(NULL) || nowTimer.Status == PVR_STREAM_IS_STOPPING || nowTimer.Status == PVR_STREAM_STOPPED || nowTimer.bIsDeleted == true)
     {
-      // recording stopped
-      e_Stream.close();
-      e_Stream.kill();
+      // recording stopped, exit via subprocess q command
+      e_Stream.in() << "q";
+      e_Stream.close_in();
+
+      // close exec stream
+      if (!e_Stream.close())
+      {
+        XBMC->Log(LOG_NOTICE, "Recorder failed to close FFMPEG, killing process");
+        e_Stream.kill();
+      }
               
       XBMC->Log(LOG_NOTICE, "Recording stopped %s", nowTimer.Timer.strTitle);
                  
@@ -413,8 +420,16 @@ void *PVRRecorderThread::Process(void)
 
         getline(e_Stream.out(bytesRead), readBuffer, '\n' ).good();
 
-        e_Stream.close();
-        e_Stream.kill();
+        // exit via subprocess q command
+        e_Stream.in() << "q";
+        e_Stream.close_in();
+
+        // close exec stream
+        if (!e_Stream.close())
+        {
+          XBMC->Log(LOG_NOTICE, "Recorder failed to close FFMPEG, killing process");
+          e_Stream.kill();
+        }
 
         // correct duration
         double duration = atof(readBuffer.c_str());
@@ -458,9 +473,16 @@ void *PVRRecorderThread::Process(void)
     }
     else if (now-lastRead>=g_iStrmTimeout)
     {
-      // something wrong - data not growing
-      e_Stream.close();
-      e_Stream.kill();
+      // something wrong - data not growing, exit via subprocess q command
+      e_Stream.in() << "q";
+      e_Stream.close_in();
+
+      // close exec stream
+      if (!e_Stream.close())
+      {
+        XBMC->Log(LOG_NOTICE, "Recorder failed to close FFMPEG, killing process");
+        e_Stream.kill();
+      }         
          
       XBMC->Log(LOG_NOTICE, "Recording failed %s", nowTimer.Timer.strTitle);
                    
@@ -477,9 +499,17 @@ void *PVRRecorderThread::Process(void)
 
         getline(e_Stream.out(bytesRead), readBuffer, '\n' ).good();
 
-        e_Stream.close();
-        e_Stream.kill();
+        // exit via subprocess q command
+        e_Stream.in() << "q";
+        e_Stream.close_in();
 
+        // close exec stream
+        if (!e_Stream.close())
+        {
+          XBMC->Log(LOG_NOTICE, "Recorder failed to close FFMPEG, killing process");
+          e_Stream.kill();
+        }
+          
         // correct duration
         double duration = atof(readBuffer.c_str());
         CorrectDurationFLVFile (videoFile, duration);
