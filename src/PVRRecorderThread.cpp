@@ -420,14 +420,10 @@ void *PVRRecorderThread::Process(void)
 
         getline(e_Stream.out(bytesRead), readBuffer, '\n' ).good();
 
-        // exit via subprocess q command
-        e_Stream.in() << "q";
-        e_Stream.close_in();
-
         // close exec stream
         if (!e_Stream.close())
         {
-          XBMC->Log(LOG_NOTICE, "Recorder failed to close FFMPEG, killing process");
+          XBMC->Log(LOG_NOTICE, "Recorder failed to close FFPROBE, killing process");
           e_Stream.kill();
         }
 
@@ -499,14 +495,10 @@ void *PVRRecorderThread::Process(void)
 
         getline(e_Stream.out(bytesRead), readBuffer, '\n' ).good();
 
-        // exit via subprocess q command
-        e_Stream.in() << "q";
-        e_Stream.close_in();
-
         // close exec stream
         if (!e_Stream.close())
         {
-          XBMC->Log(LOG_NOTICE, "Recorder failed to close FFMPEG, killing process");
+          XBMC->Log(LOG_NOTICE, "Recorder failed to close FFPROBE, killing process");
           e_Stream.kill();
         }
           
