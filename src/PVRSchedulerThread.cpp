@@ -157,7 +157,7 @@ void *PVRSchedulerThread::Process(void)
       
             s_triggerTimerUpdate = true;
           }
-          else if (currTimer.Timer.endTime < time(NULL))
+          else if (currTimer.Timer.endTime < time(NULL) && !(currTimer.Timer.state == PVR_TIMER_STATE_RECORDING))
           {
             if (currTimer.Timer.iTimerType != PVR_TIMER_TYPE_NONE) 
             {

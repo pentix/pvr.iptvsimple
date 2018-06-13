@@ -352,6 +352,7 @@ void *PVRRecorderThread::Process(void)
   e_Stream.set_binary_mode(exec_stream_t::s_out);
   e_Stream.set_wait_timeout(exec_stream_t::s_in, g_iStrmTimeout*1000);
   e_Stream.set_wait_timeout(exec_stream_t::s_out, g_iStrmTimeout*1000);
+  e_Stream.set_wait_timeout(exec_stream_t::s_child, g_iStrmTimeout*1000);
   e_Stream.start(g_strFFMPEG, strParams);
 
   XBMC->Log(LOG_NOTICE, "Set stream timeout: %d", g_iStrmTimeout);
@@ -416,6 +417,7 @@ void *PVRRecorderThread::Process(void)
         e_Stream.set_binary_mode(exec_stream_t::s_out);
         e_Stream.set_wait_timeout(exec_stream_t::s_in, g_iStrmTimeout*1000);
         e_Stream.set_wait_timeout(exec_stream_t::s_out, g_iStrmTimeout*1000);
+        e_Stream.set_wait_timeout(exec_stream_t::s_child, g_iStrmTimeout*1000);
         e_Stream.start(g_strFFPROBE, strParams);
 
         getline(e_Stream.out(bytesRead), readBuffer, '\n' ).good();
@@ -491,6 +493,7 @@ void *PVRRecorderThread::Process(void)
         e_Stream.set_binary_mode(exec_stream_t::s_out);
         e_Stream.set_wait_timeout(exec_stream_t::s_in, g_iStrmTimeout*1000);
         e_Stream.set_wait_timeout(exec_stream_t::s_out, g_iStrmTimeout*1000);
+        e_Stream.set_wait_timeout(exec_stream_t::s_child, g_iStrmTimeout*1000);
         e_Stream.start(g_strFFPROBE, strParams);
 
         getline(e_Stream.out(bytesRead), readBuffer, '\n' ).good();
