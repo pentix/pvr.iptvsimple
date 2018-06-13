@@ -1139,30 +1139,39 @@ std::string PVRDvrData::GetTimerString(const PVRDvrTimer &myTimer)
 {
   std::string ChannelName = myTimer.strChannelName;
   StringUtils::Replace(ChannelName, "|", "\\|");
-  
+  StringUtils::Replace(ChannelName, "\n", "{n}");
+
   std::string strTitle = myTimer.Timer.strTitle;
   StringUtils::Replace(strTitle, "|", "\\|");
+  StringUtils::Replace(strTitle, "\n", "{n}");
   
   std::string strEpgSearchString = myTimer.Timer.strEpgSearchString;
   StringUtils::Replace(strEpgSearchString, "|", "\\|");
+  StringUtils::Replace(strEpgSearchString, "\n", "{n}");
   
   std::string strDirectory = myTimer.Timer.strDirectory;
   StringUtils::Replace(strDirectory, "|", "\\|");
+  StringUtils::Replace(strDirectory, "\n", "{n}");
   
   std::string strSummary = myTimer.Timer.strSummary;
   StringUtils::Replace(strSummary, "|", "\\|");
+  StringUtils::Replace(strSummary, "\n", "{n}");
 
   std::string Plot = myTimer.strPlot;
   StringUtils::Replace(Plot, "|", "\\|");
+  StringUtils::Replace(Plot, "\n", "{n}");
 
   std::string PlotOutline = myTimer.strPlotOutline;
   StringUtils::Replace(PlotOutline, "|", "\\|");
+  StringUtils::Replace(PlotOutline, "\n", "{n}");
 
   std::string IconPath = myTimer.strIconPath;
   StringUtils::Replace(IconPath, "|", "\\|");
+  StringUtils::Replace(IconPath, "\n", "{n}");
 
   std::string Genre = myTimer.strGenre;
   StringUtils::Replace(Genre, "|", "\\|");
+  StringUtils::Replace(Genre, "\n", "{n}");
   
   std::string Line = "\""+ChannelName;                                                                              //0
   Line = Line+"\"|\""+inttostr(myTimer.Timer.iClientIndex);                                                         //1
@@ -1218,6 +1227,7 @@ bool PVRDvrData::ParseTimerString(std::string buffStr, PVRDvrTimer &myTimer)
 
   myTimer.strChannelName                    = lineVect[0];                                                                         //0
   StringUtils::Replace(myTimer.strChannelName, "\\|", "|");
+  StringUtils::Replace(myTimer.strChannelName, "{n}", "\n");
     
   myTimer.Timer.iClientIndex                = strtoint(lineVect[1]);                                                               //1
   myTimer.Timer.iParentClientIndex          = strtoint(lineVect[2]);                                                               //2
@@ -1229,20 +1239,24 @@ bool PVRDvrData::ParseTimerString(std::string buffStr, PVRDvrTimer &myTimer)
     
   std::string strTitle                               = lineVect[8];                                                                //8
   StringUtils::Replace(strTitle, "\\|", "|");
+  StringUtils::Replace(strTitle, "{n}", "\n");
   strncpy(myTimer.Timer.strTitle, strTitle.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
     
   std::string strEpgSearchString                     = lineVect[9];                                                                //9
   StringUtils::Replace(strEpgSearchString, "\\|", "|");
+  StringUtils::Replace(strEpgSearchString, "{n}", "\n");
   strncpy(myTimer.Timer.strEpgSearchString, strEpgSearchString.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
     
   myTimer.Timer.bFullTextEpgSearch                   = strtoint(lineVect[10]);                                                     //10
     
   std::string strDirectory                           = lineVect[11];                                                               //11
   StringUtils::Replace(strDirectory, "\\|", "|");
+  StringUtils::Replace(strDirectory, "{n}", "\n");
   strncpy(myTimer.Timer.strDirectory, strDirectory.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
     
   std::string strSummary                              = lineVect[12];                                                              //12
   StringUtils::Replace(strSummary, "\\|", "|");
+  StringUtils::Replace(strSummary, "{n}", "\n");
   strncpy(myTimer.Timer.strSummary, strSummary.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
     
   myTimer.Timer.iPriority                   = strtoint(lineVect[13]);                                                              //13
@@ -1259,15 +1273,19 @@ bool PVRDvrData::ParseTimerString(std::string buffStr, PVRDvrTimer &myTimer)
 
   myTimer.strPlot                           = lineVect[24];                                                                        //24
   StringUtils::Replace(myTimer.strPlot, "\\|", "|");
+  StringUtils::Replace(myTimer.strPlot, "{n}", "\n");
  
   myTimer.strPlotOutline                    = lineVect[25];                                                                        //25
   StringUtils::Replace(myTimer.strPlotOutline, "\\|", "|");
+  StringUtils::Replace(myTimer.strPlotOutline, "{n}", "\n");
 
   myTimer.strIconPath                       = lineVect[26];                                                                        //26
   StringUtils::Replace(myTimer.strIconPath, "\\|", "|");
+  StringUtils::Replace(myTimer.strIconPath, "{n}", "\n");
 
   myTimer.strGenre                          = lineVect[27];                                                                        //27
   StringUtils::Replace(myTimer.strGenre, "\\|", "|");
+  StringUtils::Replace(myTimer.strGenre, "{n}", "\n");
 
   myTimer.Status                            = (PVR_STREAM_STATUS) strtoint(lineVect[28]);                                          //28
 
@@ -1278,24 +1296,31 @@ std::string PVRDvrData::GetRecordingString(const PVRDvrRecording &myRecording)
 {
   std::string RecordingId = myRecording.Recording.strRecordingId;
   StringUtils::Replace(RecordingId, "|", "\\|");
+  StringUtils::Replace(RecordingId, "\n", "{n}");
 
   std::string FileName = myRecording.strFileName;
   StringUtils::Replace(FileName, "|", "\\|");
+  StringUtils::Replace(FileName, "\n", "{n}");
 
   std::string strTitle = myRecording.Recording.strTitle;
   StringUtils::Replace(strTitle, "|", "\\|");
+  StringUtils::Replace(strTitle, "\n", "{n}");
   
   std::string strPlotOutline = myRecording.Recording.strPlotOutline;
   StringUtils::Replace(strPlotOutline, "|", "\\|");
+  StringUtils::Replace(strPlotOutline, "\n", "{n}");
 
   std::string strPlot = myRecording.Recording.strPlot;
   StringUtils::Replace(strPlot, "|", "\\|");
+  StringUtils::Replace(strPlot, "\n", "{n}");
 
   std::string strChannelName = myRecording.Recording.strChannelName;
   StringUtils::Replace(strChannelName, "|", "\\|");
+  StringUtils::Replace(strChannelName, "\n", "{n}");
 
   std::string strThumbnailPath = myRecording.Recording.strThumbnailPath;
   StringUtils::Replace(strThumbnailPath, "|", "\\|");
+  StringUtils::Replace(strThumbnailPath, "\n", "{n}");
 
   std::string strPlayCount = "0";
   if (myRecording.Recording.iPlayCount > 0)
@@ -1342,29 +1367,36 @@ bool PVRDvrData::ParseRecordingString(std::string buffStr, PVRDvrRecording &myRe
 
   std::string strRecordingId                       = lineVect[0];                                              //0
   StringUtils::Replace(strRecordingId, "\\|", "|");
+  StringUtils::Replace(strRecordingId, "{n}", "\n");
   strncpy(myRecording.Recording.strRecordingId, strRecordingId.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
 
-  myRecording.strFileName                    = lineVect[1];                                                    //1
+  myRecording.strFileName                          = lineVect[1];                                              //1
   StringUtils::Replace(myRecording.strFileName, "\\|", "|");
+  StringUtils::Replace(myRecording.strFileName, "{n}", "\n");
 
   std::string strTitle                             = lineVect[2];                                              //2
   StringUtils::Replace(strTitle, "\\|", "|");
+  StringUtils::Replace(strTitle, "{n}", "\n");
   strncpy(myRecording.Recording.strTitle, strTitle.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
 
   std::string strPlotOutline                       = lineVect[3];                                              //3
   StringUtils::Replace(strPlotOutline, "\\|", "|");
+  StringUtils::Replace(strPlotOutline, "{n}", "\n");
   strncpy(myRecording.Recording.strPlotOutline, strPlotOutline.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
 
   std::string strPlot                              = lineVect[4];                                              //4
   StringUtils::Replace(strPlot, "\\|", "|");
+  StringUtils::Replace(strPlot, "{n}", "\n");
   strncpy(myRecording.Recording.strPlot, strPlot.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
 
   std::string strChannelName                       = lineVect[5];                                              //5
   StringUtils::Replace(strChannelName, "\\|", "|");
+  StringUtils::Replace(strChannelName, "{n}", "\n");
   strncpy(myRecording.Recording.strChannelName, strChannelName.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);
 
   std::string strThumbnailPath                     = lineVect[6];                                              //6
   StringUtils::Replace(strThumbnailPath, "\\|", "|");
+  StringUtils::Replace(strThumbnailPath, "{n}", "\n");
   strncpy(myRecording.Recording.strThumbnailPath, strThumbnailPath.c_str(), PVR_ADDON_NAME_STRING_LENGTH - 1);    
 
   myRecording.Recording.recordingTime        = strtoint(lineVect[7]);                                          //7

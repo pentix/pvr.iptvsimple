@@ -105,7 +105,21 @@ void *PVRSchedulerThread::Process(void)
         {
           currTimer = tmr->second;
 
-          if (currTimer.Timer.state == PVR_TIMER_STATE_CANCELLED) 
+          if (currTimer.Timer.endTime <= time(NULL) && (currTimer.Timer.state == PVR_TIMER_STATE_RECORDING))
+          {
+            // stop Recording
+            XBMC->Log(LOG_NOTICE, "Try to stop recording %s", currTimer.Timer.strTitle);
+            StopRecording(currTimer);
+            s_triggerTimerUpdate = true;
+          }
+          else if ((currTimer.Timer.startTime-10) <= time(NULL) && currTimer.Timer.state == PVR_TIMER_STATE_SCHEDULED && currTimer.Timer.firstDay <= time(NULL))
+          {
+            // start new Recording
+            XBMC->Log(LOG_NOTICE, "Try to start recording %s", currTimer.Timer.strTitle);
+            StartRecording(currTimer);
+            s_triggerTimerUpdate = true;
+          }
+          else if (currTimer.Timer.state == PVR_TIMER_STATE_CANCELLED) 
           {
             XBMC->Log(LOG_NOTICE, "Try to delete timer %s", currTimer.Timer.strTitle);
             
@@ -173,20 +187,6 @@ void *PVRSchedulerThread::Process(void)
                 XBMC->Log(LOG_NOTICE, "Successfully deleted.");
             }
         
-            s_triggerTimerUpdate = true;
-          }
-          else if ((currTimer.Timer.startTime-10) <= time(NULL) && currTimer.Timer.state == PVR_TIMER_STATE_SCHEDULED && currTimer.Timer.firstDay <= time(NULL))
-          {
-            // start new Recording
-            XBMC->Log(LOG_NOTICE, "Try to start recording %s", currTimer.Timer.strTitle);
-            StartRecording(currTimer);
-            s_triggerTimerUpdate = true;
-          }
-          else if (currTimer.Timer.endTime <= time(NULL) && (currTimer.Timer.state == PVR_TIMER_STATE_RECORDING))
-          {
-            // stop Recording
-            XBMC->Log(LOG_NOTICE, "Try to stop recording %s", currTimer.Timer.strTitle);
-            StopRecording(currTimer);
             s_triggerTimerUpdate = true;
           }
         }
