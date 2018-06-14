@@ -105,21 +105,7 @@ void *PVRSchedulerThread::Process(void)
         {
           currTimer = tmr->second;
 
-          if (currTimer.Timer.endTime <= time(NULL) && (currTimer.Timer.state == PVR_TIMER_STATE_RECORDING))
-          {
-            // stop Recording
-            XBMC->Log(LOG_NOTICE, "Try to stop recording %s", currTimer.Timer.strTitle);
-            StopRecording(currTimer);
-            s_triggerTimerUpdate = true;
-          }
-          else if ((currTimer.Timer.startTime-10) <= time(NULL) && currTimer.Timer.state == PVR_TIMER_STATE_SCHEDULED && currTimer.Timer.firstDay <= time(NULL))
-          {
-            // start new Recording
-            XBMC->Log(LOG_NOTICE, "Try to start recording %s", currTimer.Timer.strTitle);
-            StartRecording(currTimer);
-            s_triggerTimerUpdate = true;
-          }
-          else if (currTimer.Timer.state == PVR_TIMER_STATE_CANCELLED) 
+          if (currTimer.Timer.state == PVR_TIMER_STATE_CANCELLED) 
           {
             XBMC->Log(LOG_NOTICE, "Try to delete timer %s", currTimer.Timer.strTitle);
             
@@ -189,6 +175,20 @@ void *PVRSchedulerThread::Process(void)
         
             s_triggerTimerUpdate = true;
           }
+          else if ((currTimer.Timer.startTime-10) <= time(NULL) && currTimer.Timer.state == PVR_TIMER_STATE_SCHEDULED && currTimer.Timer.firstDay <= time(NULL))
+          {
+            // start new Recording
+            XBMC->Log(LOG_NOTICE, "Try to start recording %s", currTimer.Timer.strTitle);
+            StartRecording(currTimer);
+            s_triggerTimerUpdate = true;
+          }
+          else if (currTimer.Timer.endTime <= time(NULL) && (currTimer.Timer.state == PVR_TIMER_STATE_RECORDING))
+          {
+            // stop Recording
+            XBMC->Log(LOG_NOTICE, "Try to stop recording %s", currTimer.Timer.strTitle);
+            StopRecording(currTimer);
+            s_triggerTimerUpdate = true;
+          }
         }
               
         m_dvr->SetUnlock();
@@ -226,7 +226,6 @@ void *PVRSchedulerThread::Process(void)
 
       s_jobFile = g_strRecPath+TIMERS_FILE_NAME;
       v_fileHandle = XBMC->OpenFile(s_jobFile.c_str(), 0);
-
       if (v_fileHandle)
       {
         // read in updated timers file
