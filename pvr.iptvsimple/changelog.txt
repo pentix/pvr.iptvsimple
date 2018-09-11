@@ -1,5 +1,5 @@
 v4.0.1
--Added SAMBA params for user to customize
+- Added SAMBA params for user to customize
 
 v4.0.0
 - Added recording capabilities using FFMPEG
