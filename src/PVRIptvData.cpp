@@ -589,7 +589,6 @@ PVR_ERROR PVRIptvData::GetChannels(ADDON_HANDLE handle, bool bRadio)
       xbmcChannel.bIsRadio          = channel.bRadio;
       xbmcChannel.iChannelNumber    = channel.iChannelNumber;
       strncpy(xbmcChannel.strChannelName, channel.strChannelName.c_str(), sizeof(xbmcChannel.strChannelName) - 1);
-      strncpy(xbmcChannel.strStreamURL, channel.strStreamURL.c_str(), sizeof(xbmcChannel.strStreamURL) - 1);
       xbmcChannel.iEncryptionSystem = channel.iEncryptionSystem;
       strncpy(xbmcChannel.strIconPath, channel.strLogoPath.c_str(), sizeof(xbmcChannel.strIconPath) - 1);
       xbmcChannel.bIsHidden         = false;
@@ -735,7 +734,7 @@ PVR_ERROR PVRIptvData::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &
 
       tag.iUniqueBroadcastId  = myTag->iBroadcastId;
       tag.strTitle            = myTag->strTitle.c_str();
-      tag.iChannelNumber      = myTag->iChannelId;
+      tag.iUniqueChannelId    = channel.iUniqueId;
       tag.startTime           = myTag->startTime + iShift;
       tag.endTime             = myTag->endTime + iShift;
       tag.strPlotOutline      = myTag->strPlotOutline.c_str();
@@ -818,7 +817,7 @@ PVR_ERROR PVRIptvData::GetEPGTagForChannel(EPG_TAG &tag, const PVR_CHANNEL &chan
       
       tag.iUniqueBroadcastId  = myTag->iBroadcastId;
       tag.strTitle            = myTag->strTitle.c_str();
-      tag.iChannelNumber      = myTag->iChannelId;
+      tag.iUniqueChannelId    = myTag->iChannelId;
       tag.startTime           = myTag->startTime + iShift;
       tag.endTime             = myTag->endTime + iShift;
       tag.strPlotOutline      = myTag->strPlotOutline.c_str();

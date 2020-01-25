@@ -29,7 +29,7 @@
 #include "PVRIptvData.h"
 #include "PVRDvrData.h"
 #include "PVRUtils.h"
-#include "xbmc_pvr_dll.h"
+//#include "xbmc_pvr_dll.h"
 #include "p8-platform/util/util.h"
 
 using namespace ADDON;
@@ -76,6 +76,11 @@ std::string g_strSmbPath     = "";
 std::string g_strSmbMount    = "";
 std::string g_strSmbUnmount  = "";
 
+
+// nasty fix?
+#define XBMC_PVR_MIN_API_VERSION "1.9.0"
+#define XBMC_PVR_API_VERSION "1.9.0"
+
 extern std::string PathCombine(const std::string &strPath, const std::string &strFileName)
 {
   std::string strResult = strPath;
@@ -104,6 +109,9 @@ extern std::string GetUserFilePath(const std::string &strFileName)
 }
 
 extern "C" {
+
+// nasty fix
+void CloseLiveStream(void);
 
 void ADDON_ReadSettings(void)
 {
@@ -306,7 +314,7 @@ bool ADDON_HasSettings()
   return true;
 }
 
-unsigned int ADDON_GetSettings(ADDON_StructSetting ***sSet)
+unsigned int ADDON_GetSettings(void ***sSet)
 {
   return 0;
 }
