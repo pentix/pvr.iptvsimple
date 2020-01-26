@@ -29,7 +29,7 @@
 #include "PVRIptvData.h"
 #include "PVRDvrData.h"
 #include "PVRUtils.h"
-//#include "xbmc_pvr_dll.h"
+#include "xbmc_pvr_dll.h"
 #include "p8-platform/util/util.h"
 
 using namespace ADDON;
@@ -584,6 +584,66 @@ int GetRecordingsAmount(bool deleted)
 
   return -1;
 }
+
+//PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING &recording, std::vector< std::pair< std::string, std::string >> &properties)
+
+PVR_ERROR GetRecordingStreamProperties(const PVR_RECORDING*, PVR_NAMED_VALUE*, unsigned int*)
+{
+  /*
+  if (m_dvr){
+    std::string path = m_dvr->_strRecPath+RECORDINGS_FILE_NAME;
+    return PVR_ERROR_NO_ERROR;
+  }
+  */
+
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR GetChannelStreamProperties(const PVR_CHANNEL* channel, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR GetDescrambleInfo(PVR_DESCRAMBLE_INFO* descrambleInfo)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR GetStreamTimes(PVR_STREAM_TIMES *times)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR GetEPGTagEdl(const EPG_TAG* epgTag, PVR_EDL_ENTRY edl[], int *size)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR IsEPGTagPlayable(const EPG_TAG* tag, bool* bIsPlayable)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR GetStreamReadChunkSize(int* chunksize)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR IsEPGTagRecordable(const EPG_TAG* tag, bool* bIsRecordable)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR GetEPGTagStreamProperties(const EPG_TAG* tag, PVR_NAMED_VALUE* properties, unsigned int* iPropertiesCount)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
+PVR_ERROR SetRecordingLifetime(const PVR_RECORDING* recording)
+{
+  return PVR_ERROR_NOT_IMPLEMENTED;
+}
+
 
 PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
 {
